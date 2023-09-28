@@ -1,0 +1,233 @@
+#include<iostream>
+using namespace std;
+class Date
+{
+    private:
+    int day;
+    int month;
+    int year;
+    public:
+    Date()
+    {
+      this->day=0;
+      this->month=0;
+      this->year=0;
+
+    }
+    Date(int day,int month,int year)
+{
+    this->day=day;
+    this->month=month;
+    this->year=year;
+
+}
+void acceptDate()
+{
+    cout<<"enter the day=" ;
+    cin>>this->day;
+    cout<<"enter the month= ";
+    cin>>this->month;
+    cout<<"enter the year=";
+    cin>>this->year;
+
+}
+void displayDate()
+{
+    cout<<this->day<<"/" << this->month<<"/"<<this->year<<endl;
+
+}
+int get_day()
+{
+    return day;
+
+}
+void set_day(int day)
+{
+    this->day=day;
+
+}
+int get_month()
+{
+    return month;
+
+}
+ void set_month(int month)
+ {
+    this->month=month;
+
+ }
+ int get_year()
+ {
+    return year;
+
+ }
+ void set_year(int year)
+ {
+    this->year=year;
+
+ }
+  bool  isleap_year()
+ {
+      return((this->year % 400==0) );
+ }
+
+  
+
+
+
+};
+
+class employee
+{
+    private:
+    int id;
+    float salary;
+    string dept;
+    Date doj;
+   public:
+   employee()
+   {
+      this->id=0;
+     this->salary=0;
+
+
+   }
+   employee(int id,float salary,string dept,int day,int month,int year): doj(day,month,year)
+   {
+    this->id=id;
+    this->salary=salary;
+    this->dept=dept;
+    
+   }
+   int get_id()
+ {
+    return id;
+
+}
+void set_id(int id)
+ {
+    this->id=id;
+ }
+ float get_sal()
+ {
+    return salary;
+
+ }
+ void set_salry(float salary)
+ {
+    this->salary=salary;
+
+ }
+  string get_dept(string dept)
+  {
+    return dept;
+
+  }
+  void set_dept(string dept)
+  {
+     this->dept=dept;
+  }
+  Date get_doj(Date doj)
+  {
+    return doj;
+  }
+  Date set_job(Date job)
+  {
+    this->doj=doj;
+
+  }
+   
+   void accept()
+   {
+     cout<<"enter id";
+     cin>>this->id;
+     cout<<"enter sal";
+     cin>>this->salary;
+     cout<<"deptname";
+     cin>>this->dept;
+     doj.acceptDate();
+   }
+   void displayEmployee()
+   {
+    cout<<"empid="<<this->id<<endl;
+    cout<<"salary="<<this->salary<<endl;
+    cout<<"deptname ="<<this->dept<<endl;
+    doj.displayDate();
+   }
+
+};
+class person
+{
+    private:
+   string name;
+   string addr;
+   Date dob;
+   public:
+   person()
+   {
+     
+     cout<<"parameterless ctor";
+
+   }
+   person(string name,string addr,int day,int month,int year): dob(day,month,year)
+   {
+        this->name=name;
+        this->addr=addr;
+
+   }
+     string get_name(string name)
+     {
+        return name;
+     }
+     void set_name(string name)
+     {
+        this->name=name;
+
+     }
+     string get_addr(string addr)
+     {
+         return addr;
+     }
+     void set_addr(string addr)
+     {
+        this->addr=addr;
+
+     }
+      Date get_dob(string dob)
+      {
+          
+      }
+      void set_dob(Date dob)
+      {
+        this->dob=dob;
+      }
+void display()
+{
+    cout<<"name="<<this->name<<endl;
+    cout<<"addr="<<this->addr<<endl;
+    dob.displayDate();
+
+}
+void accept()
+{
+    cout<<"enter name=";
+    cin>>this->name;
+    cout<<"enter addr=";
+    cin>>this->addr;
+    dob.acceptDate();
+}
+};
+int main()
+{
+   employee e;
+   e.accept();
+   e.displayEmployee();
+   Date d;
+   d.acceptDate();
+   d.displayDate();
+   d.isleap_year();
+   person p;
+   p.accept();
+   p.display();
+   return 0; 
+}
