@@ -1,0 +1,186 @@
+#include<iostream>
+using namespace std;
+class Time
+{
+    private:
+    int hr;
+    int min;
+    int sec;
+
+    public:
+
+    Time ()
+{
+
+
+
+}
+    Time(int hr, int min, int sec)
+    {
+        this->hr= 4;
+
+        this->min=35;
+        
+        this->sec=5;
+        
+    }
+     int gethr(){
+ return hr;
+     }
+     int getmin(){
+        return min;
+
+     }
+
+    int getsec()
+    {
+        return sec;
+
+    }
+
+       void  printTime()
+
+    {
+        cout<<"hr="<<hr<<endl;
+        cout<<"min="<<min<<endl;
+        cout<<"sec="<<sec<<endl;
+
+    }
+     void sethr(int hr)
+     {
+        this->hr=hr;
+
+     }
+     void setmin(int min)
+     {
+        this->min=min;
+
+     }
+     void setsec(int sec)
+     {
+        this->sec=sec;
+
+     }
+};
+
+  int main()
+  {  
+      
+       Time *arr[3];
+
+       for (int i=0;i<3;i++)
+        arr[i] = new Time();
+
+       for (int i=0;i<3;i++)
+       {
+       cout<<"enter thevalues for index "<< i <<"="<<endl;
+       arr[i] ->printTime();
+       }
+         
+       for(int i=0;i<3;i++)
+       {
+          cout<<"values at index" << i <<"="<<endl;
+          arr[i]->printTime();
+
+       } 
+       for(int i=0;i<3;i++)
+       {
+          cout<<"values at index" << i <<"="<<endl;
+          arr[i]->getsec();
+
+       }
+         
+         for (int i=0;i<3;i++)
+
+         
+       {
+          cout<<"values at index" << i <<"="<<endl;
+          arr[i]->setsec(2);
+
+          
+       }
+
+       for (int i=0;i<3;i++)
+
+         
+       {
+          cout<<"values at index" << i <<"="<<endl;
+          arr[i]->setmin(2);
+
+          
+       }
+       for (int i=0;i<3;i++)
+
+         
+       {
+          cout<<"values at index" << i <<"="<<endl;
+          arr[i]->sethr(2);
+
+          
+       }
+
+
+         for(int i=0;i<3;i++)
+       {
+          cout<<"values at index" << i <<"="<<endl;
+          arr[i]->getmin();
+
+       }
+
+       for(int i=0;i<3;i++)
+       {
+          cout<<"values at index" << i <<"="<<endl;
+          arr[i]->gethr();
+
+       }
+         for (int i = 0; i < 3; i++)
+        delete arr[i];
+
+          return 0;
+
+
+
+
+
+     
+  }
+
+
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

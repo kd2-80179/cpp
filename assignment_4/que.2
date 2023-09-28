@@ -1,0 +1,90 @@
+#include<iostream>
+using namespace std;
+class Stack
+{
+    private:
+    int size;
+    int top;
+    int value;
+    int *arr;
+     public:
+Stack()
+{
+  
+}  
+ Stack( int size=5)
+ { 
+   this->size=size;
+   this->top =-1;
+      arr=new int;
+
+
+ }
+ 
+
+   void push()
+ {
+    if(isfull())
+        cout<<"stack is full";
+     else{
+         cout<<"enters the value to push";
+        cin>>value;
+        arr[top]=value;
+    
+        
+     }   
+
+ }
+
+  void pop()
+{
+
+     if(isEmpty())
+     {
+        cout<<"stack is empty";
+     }
+     
+}
+
+   int  isEmpty(){
+          if(top==-1)
+          return 1;
+  else
+         return 0;
+
+
+}
+  int  isfull()
+  {
+    if(top==size-1)
+           return 1;
+            
+    else 
+          return 0;
+
+  }
+
+  void peek()
+ {
+
+ cout<<"value at top print"<<arr[top];
+
+
+
+
+
+
+}
+
+
+};
+int main()
+{
+      Stack s(2);
+      s.push();
+      s.pop();
+      s.isEmpty();
+      s.isfull();
+      s.peek();
+}
+    

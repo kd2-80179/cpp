@@ -1,0 +1,143 @@
+#include<iostream>
+using namespace std;
+
+class Student
+{
+    private:
+        string name;
+        string gender;  
+        int rollNumber;
+        Marks marks;
+    public:
+        Student()
+        {
+            this->name = "";
+            this->gender = "";
+            this->rollNumber = 0;
+        }
+        Student(string name, string gender, int rollNumber)
+        {
+            this->name = name;
+            this->gender = gender;
+            this->rollNumber = rollNumber;
+        }
+        void acceptData()
+        {
+            cout<<"Enter roll number: ";
+            cin>>this->rollNumber;
+            cout<<"Enter name: ";
+            cin>>this->name;
+            cout<<"Enter gender: ";
+            cin>>this->gender;
+            this->marks.acceptMarks();
+        }
+        void printData()
+        {
+            cout<<"Name = "<<this->name<<endl;
+            cout<<"Roll number = "<<this->rollNumber<<endl;
+            cout<<"Gender = "<<this->gender<<endl;
+            this->marks.displayPercentage();
+        }
+        int getRollNumber()
+        {
+            return this->rollNumber;
+        }
+
+        friend void sortRecords(Student arr[], int index);
+        friend int searchRecords(Student arr[], int index);
+};
+
+void sortRecords(Student arr[], int index)
+{
+    for(int i=0; i<index; i++)
+    {
+        for(int j=i+1; j<index; j++)
+        {
+            if(arr[i].rollNumber > arr[j].rollNumber)
+            {
+                Student temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+
+int searchRecords(Student arr[], int index)
+{
+    int rollno;
+    cout<<"Enter roll number: ";
+    cin>>rollno;
+    for(int i=0; i<index; i++)
+    {
+        if(rollno == arr[i].rollNumber)
+            return i;
+    }
+    return -1;
+}
+
+enum EStudent
+{
+    EXIT,
+    ACCEPT,
+    PRINT,
+    SEARCH,
+    SORT
+};
+
+EStudent menu()
+{
+    int choice;
+    cout<<"0. EXIT"<<endl;
+    cout<<"1. ACCEPT"<<endl;
+    cout<<"2. PRINT"<<endl;
+    cout<<"3. SEARCH"<<endl;
+    cout<<"4. SORT"<<endl;
+    cout<<"Enter choice: ";
+    cin>>choice;
+    return (EStudent)choice;
+}
+
+int main()
+{
+    EStudent choice;
+    Student student[5]; 
+    int index = 0; 
+    int rollno;
+
+    while((choice = menu()) != EXIT)
+    {
+        switch(choice){
+            case ACCEPT:
+                if(index < 5){
+                    student[index].acceptData();
+                    index++;
+                }else{
+                    cout<<"Sorry array is full..."<<endl;
+                }
+                break;
+            case PRINT:
+                cout<<"--------------------"<<endl;
+                cout<<"Student details"<<endl;
+                for(int i=0; i<index; i++){
+                    student[i].printData();
+                    cout<<"--------------------"<<endl;
+                }
+                break;
+            case SEARCH:
+                cout<<searchRecords(student, index)<<endl;
+                break;
+            case SORT:
+                cout<<"Sorted according to roll number..."<<endl;
+                sortRecords(student, index);
+                break;
+            default:
+                cout<<"Enter correct choice..."<<endl;
+                break;
+        }
+    }
+
+    cout<<"Exiting..."<<endl;
+
+    return 0;
+}
