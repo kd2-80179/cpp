@@ -1,0 +1,235 @@
+#include <iostream>
+using namespace std;
+
+enum type
+{
+    SAVING = 1,
+    CURRENT,
+    DMAT
+};
+
+class Insufficient_funds
+{
+private:
+    int accid;
+    double cur_balance;
+    double withdraw_amount;
+
+public:
+    Insufficient_funds(int accid, double cur_balance, double withdraw_amount)
+    {
+        this->accid = accid;
+        this->cur_balance = cur_balance;
+        this->withdraw_amount = withdraw_amount;
+    }
+    void display()
+    {
+        cout << "---------------------------------------------------" << endl;
+        cout << "Your Account No : " << this->accid << endl;
+        cout << "Account Balance : " << this->cur_balance << endl;
+        cout << "Withdraw Amount : " << this->withdraw_amount << endl;
+        cout << "Insufficient Balance" << endl;
+        cout << "---------------------------------------------------" << endl;
+    }
+};
+class Account
+{
+private:
+    int id;
+    double balance;
+    type account_type; 
+    int accType;
+
+public:
+    Account()
+    {
+        this->id = 0;
+        this->balance = 0;
+        this->account_type = SAVING;
+    }
+    Account(int id, double, type account_type)
+    {
+        this->id = 0;
+        this->balance = 0;
+        this->account_type = account_type;
+    }
+    void accept()
+    {
+        cout << "---------------------------------------------------" << endl;
+        cout << "Enter Account type : " << endl;
+        cout << "1. Saving Account" << endl;
+        cout << "2. Current Account" << endl;
+        cout << "3. Dmat Account" << endl;
+        cin >> accType;
+        cout << "Enter Account id : ";
+        cin >> this->id;
+        cout << "Enter Amount : ";
+        cin >> this->balance;
+        cout << "---------------------------------------------------" << endl;
+        
+    }
+    void display()
+    {
+        cout << "---------------------------------------------------" << endl;
+        cout << "Account No : " << this->id << endl;
+        cout << "Account Type : ";
+        switch (accType) 
+        {
+        case SAVING:
+            cout << "Saving" << endl;
+            break;
+        case CURRENT:
+            cout << "Current" << endl;
+            break;
+        case DMAT:
+            cout << "Dmat" << endl;
+            break;
+        }
+        cout << "Current Balance : " << this->balance << endl;
+        cout << "---------------------------------------------------" << endl;
+    }
+    void set_id(int id)
+    {
+        this->id = id;
+    }
+    void set_type(type account_type)
+    {
+        this->account_type = account_type;
+    }
+    int get_id()
+    {
+        return this->id;
+    }
+    type get_account_type()
+    {
+        return this->account_type;
+    }
+    double get_balance()
+    {
+        return this->balance;
+    }
+    void deposit(double amount)
+    {
+        if (amount < 0)
+        {
+            throw 114;
+        }
+        else
+        {
+            cout << "---------------------------------------------------" << endl;
+            this->balance = this->balance + amount;
+            cout << "Current Balance After deposit : " << this->balance << endl;
+            cout << "---------------------------------------------------" << endl;
+        }
+    }
+    void withdraw(double amount)
+    {
+        if (this->balance >= amount)
+        {
+            cout << "---------------------------------------------------" << endl;
+            this->balance = this->balance - amount;
+            cout << "Current Balance After Withdraw : " << this->balance << endl;
+        }
+        else
+        {
+            cout << "---------------------------------------------------" << endl;
+            throw new Insufficient_funds(this->id, this->balance, amount);
+            cout << "---------------------------------------------------" << endl;
+        }
+    }
+};
+
+int menu()
+{
+    cout << "---------------------------------------------------" << endl;
+    int choice;
+    cout << "Welcome To Bank" << endl;
+    cout << "1. Add Account" << endl;
+    cout << "2. Display Account" << endl;
+    cout << "3. Deposit" << endl;
+    cout << "4. Withdraw" << endl;
+    cout << "0. Exit" << endl;
+    cout << "---------------------------------------------------" << endl;
+    cout << "Enter Your Choice : ";
+    cin >> choice;
+    return choice;
+}
+
+int main()
+{
+    int choice;
+    int index = 1;
+    int accNo;
+    int amount;
+    Account *acc = new Account[5];
+    while ((choice = menu()) != 0)
+    {
+        switch (choice)
+        {
+        case 1:
+            if (index <= 5)
+            {
+                acc[index].accept();
+                index++;
+            }
+            else
+            {
+                cout << "Bank is Full" << endl;
+            }
+            break;
+        case 2:
+            cout << "Enter Account No : ";
+            cin >> accNo;
+            for (int i = 0; i <= index; i++)
+            {
+                if (acc[i].get_id() == accNo)
+                {
+                    acc[i].display();
+                }
+            }
+            break;
+        case 3:
+            cout << "Enter Account No : ";
+            cin >> accNo;
+            cout << "Enter Amount to deposit : ";
+            cin >> amount;
+            try
+            {
+                acc[accNo].deposit(amount);
+            }
+            catch (int error)
+            {
+                cout << "Error : " << error << endl;
+                cout << "You cannot add negative value" << endl;
+                try
+                {
+                    acc[accNo].deposit(amount);
+                }
+                catch (int error)
+                {
+                    cout << "Error : " << error << endl;
+                    cout << "You cannot add negative value" << endl;
+                }
+            }
+            break;
+        case 4:
+            cout << "Enter Account No : ";
+            cin >> accNo;
+            cout << "Enter Amount to withdraw : ";
+            cin >> amount;
+            try
+            {
+                acc[accNo].withdraw(amount);
+            }
+            catch (Insufficient_funds *i)
+            {
+                i->display();
+            }
+            break;
+        }
+    }
+    if (acc != NULL)
+    {
+        delete[] acc;
+    }
+}
